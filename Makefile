@@ -40,6 +40,7 @@ Src/main.c \
 Src/gpio.c \
 Src/spi.c \
 Src/usart.c \
+Src/dac.c \
 Src/stm32f1xx_it.c \
 Src/stm32f1xx_hal_msp.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \

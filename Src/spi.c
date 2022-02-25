@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "spi.h"
+#include "main.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -54,7 +55,9 @@ void MX_SPI1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN SPI1_Init 2 */
-
+  HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
   /* USER CODE END SPI1_Init 2 */
 
 }
