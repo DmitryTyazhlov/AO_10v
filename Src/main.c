@@ -22,13 +22,13 @@
 #include "gpio.h"
 #include "spi.h"
 #include "usart.h"
-#include "dac.h"
-
-#include "stdint.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "dac.h"
+#include "stdint.h"
+#include "stdlib.h"
+#include "console.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +59,24 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t buf[20] = {0};
+uint8_t num_symbol = 0;
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    // if (buf == '0') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+    // if (buf == '1') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+    
+    if (buf[num_symbol] == '\n') {
+        num_symbol = 0;
+        if (buf_decode(buf, sizeof(buf)) == 0) HAL_UART_Transmit(&huart1, "ok\n", 3, 1);
+        else HAL_UART_Transmit(&huart1, "error\n", 6, 1);
+        }
+    else num_symbol++;
+
+    if (num_symbol == 18) num_symbol = 0;
+
+    HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
+}
 /* USER CODE END 0 */
 
 /**
@@ -95,14 +112,16 @@ int main(void) {
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-    dac_set_voltage(0, 4095);
+  
     /* USER CODE END 2 */
-
+    HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
+    buf[19] = '\n';
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
         /* USER CODE END WHILE */
-
+        //      HAL_UART_Transmit(&huart1, hui, 5, 1);
+        HAL_Delay(300);
         /* USER CODE BEGIN 3 */
     }
     /* USER CODE END 3 */
@@ -156,10 +175,10 @@ void Error_Handler(void) {
      */
     __disable_irq();
     while (1) {
-      HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-      HAL_Delay(400);
-      HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
-      HAL_Delay(400);
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+        HAL_Delay(400);
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+        HAL_Delay(400);
     }
     /* USER CODE END Error_Handler_Debug */
 }

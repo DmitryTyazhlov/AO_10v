@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 1
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -17,186 +17,193 @@ ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 1
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text.dac_set_voltage,"ax",%progbits
-  18              		.align	1
-  19              		.global	dac_set_voltage
-  20              		.syntax unified
-  21              		.thumb
-  22              		.thumb_func
-  24              	dac_set_voltage:
-  25              	.LVL0:
-  26              	.LFB65:
-  27              		.file 1 "Src/dac.c"
+  17              		.global	__aeabi_dmul
+  18              		.global	__aeabi_d2uiz
+  19              		.section	.text.dac_set_voltage,"ax",%progbits
+  20              		.align	1
+  21              		.global	dac_set_voltage
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	dac_set_voltage:
+  27              	.LVL0:
+  28              	.LFB65:
+  29              		.file 1 "Src/dac.c"
    1:Src/dac.c     **** #include "dac.h"
    2:Src/dac.c     **** 
    3:Src/dac.c     **** #include "main.h"
    4:Src/dac.c     **** #include "spi.h"
    5:Src/dac.c     **** 
-   6:Src/dac.c     **** uint8_t dac_set_voltage(uint8_t number_adc, uint16_t size) {
-  28              		.loc 1 6 60 view -0
-  29              		.cfi_startproc
-  30              		@ args = 0, pretend = 0, frame = 8
-  31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		.loc 1 6 60 is_stmt 0 view .LVU1
-  33 0000 10B5     		push	{r4, lr}
-  34              	.LCFI0:
-  35              		.cfi_def_cfa_offset 8
-  36              		.cfi_offset 4, -8
-  37              		.cfi_offset 14, -4
-  38 0002 82B0     		sub	sp, sp, #8
-  39              	.LCFI1:
-  40              		.cfi_def_cfa_offset 16
-  41 0004 ADF80610 		strh	r1, [sp, #6]	@ movhi
-   7:Src/dac.c     ****     switch (number_adc) {
-  42              		.loc 1 7 5 is_stmt 1 view .LVU2
-  43 0008 0128     		cmp	r0, #1
-  44 000a 24D0     		beq	.L2
-  45 000c 0228     		cmp	r0, #2
-  46 000e 28D0     		beq	.L3
-  47 0010 C0B1     		cbz	r0, .L6
-  48              	.LVL1:
-  49              	.L4:
-   8:Src/dac.c     ****         case 0:
-   9:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_RESET);
-ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 2
+   6:Src/dac.c     **** uint8_t dac_set_voltage(uint8_t channel, double voltage) {
+  30              		.loc 1 6 58 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 6 58 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 82B0     		sub	sp, sp, #8
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 16
+  43 0004 0446     		mov	r4, r0
+  44 0006 1046     		mov	r0, r2
+  45              	.LVL1:
+  46              		.loc 1 6 58 view .LVU2
+  47 0008 1946     		mov	r1, r3
+   7:Src/dac.c     ****     voltage *= 405.6;
+  48              		.loc 1 7 5 is_stmt 1 view .LVU3
+  49              		.loc 1 7 13 is_stmt 0 view .LVU4
+  50 000a 1DA3     		adr	r3, .L7
+  51 000c D3E90023 		ldrd	r2, [r3]
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s 			page 2
 
 
-  10:Src/dac.c     ****             break;
-  11:Src/dac.c     ****         case 1:
-  12:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_RESET);
-  13:Src/dac.c     ****             break;
-  14:Src/dac.c     ****         case 2:
-  15:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
-  16:Src/dac.c     ****             break;
-  17:Src/dac.c     ****     }
-  18:Src/dac.c     ****     HAL_SPI_Transmit(&hspi1, (uint8_t*)&size, 2, 1);
-  50              		.loc 1 18 5 view .LVU3
-  51 0012 0123     		movs	r3, #1
-  52 0014 0222     		movs	r2, #2
-  53 0016 0DF10601 		add	r1, sp, #6
-  54 001a 1548     		ldr	r0, .L7
-  55 001c FFF7FEFF 		bl	HAL_SPI_Transmit
-  56              	.LVL2:
-  19:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_SET);
-  57              		.loc 1 19 5 view .LVU4
-  58 0020 144C     		ldr	r4, .L7+4
-  59 0022 0122     		movs	r2, #1
-  60 0024 1146     		mov	r1, r2
-  61 0026 2046     		mov	r0, r4
-  62 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
-  63              	.LVL3:
-  20:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_SET);
-  64              		.loc 1 20 5 view .LVU5
-  65 002c 0122     		movs	r2, #1
-  66 002e 0221     		movs	r1, #2
-  67 0030 2046     		mov	r0, r4
-  68 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
-  69              	.LVL4:
-  21:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
-  70              		.loc 1 21 5 view .LVU6
-  71 0036 0122     		movs	r2, #1
-  72 0038 0421     		movs	r1, #4
-  73 003a 2046     		mov	r0, r4
-  74 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+  52              	.LVL2:
+  53              		.loc 1 7 13 view .LVU5
+  54 0010 FFF7FEFF 		bl	__aeabi_dmul
+  55              	.LVL3:
+   8:Src/dac.c     ****     uint16_t size = (uint16_t)voltage;
+  56              		.loc 1 8 5 is_stmt 1 view .LVU6
+  57              		.loc 1 8 21 is_stmt 0 view .LVU7
+  58 0014 FFF7FEFF 		bl	__aeabi_d2uiz
+  59              	.LVL4:
+  60              		.loc 1 8 14 view .LVU8
+  61 0018 ADF80600 		strh	r0, [sp, #6]	@ movhi
+   9:Src/dac.c     ****     switch (channel) {
+  62              		.loc 1 9 5 is_stmt 1 view .LVU9
+  63 001c 012C     		cmp	r4, #1
+  64 001e 22D0     		beq	.L2
+  65 0020 022C     		cmp	r4, #2
+  66 0022 26D0     		beq	.L3
+  67 0024 CCB1     		cbz	r4, .L6
+  68              	.L4:
+  10:Src/dac.c     ****         case 0:
+  11:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_RESET);
+  12:Src/dac.c     ****             break;
+  13:Src/dac.c     ****         case 1:
+  14:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_RESET);
+  15:Src/dac.c     ****             break;
+  16:Src/dac.c     ****         case 2:
+  17:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_RESET);
+  18:Src/dac.c     ****             break;
+  19:Src/dac.c     ****     }
+  20:Src/dac.c     ****     HAL_SPI_Transmit(&hspi1, (uint8_t*)&size, 2, 1);
+  69              		.loc 1 20 5 view .LVU10
+  70 0026 0123     		movs	r3, #1
+  71 0028 0222     		movs	r2, #2
+  72 002a 0DF10601 		add	r1, sp, #6
+  73 002e 1648     		ldr	r0, .L7+8
+  74 0030 FFF7FEFF 		bl	HAL_SPI_Transmit
   75              	.LVL5:
-  22:Src/dac.c     **** }...
-  76              		.loc 1 22 1 is_stmt 0 view .LVU7
-  77 0040 02B0     		add	sp, sp, #8
-  78              	.LCFI2:
-  79              		.cfi_remember_state
-  80              		.cfi_def_cfa_offset 8
-  81              		@ sp needed
-  82 0042 10BD     		pop	{r4, pc}
-  83              	.LVL6:
-  84              	.L6:
-  85              	.LCFI3:
-  86              		.cfi_restore_state
-   9:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_RESET);
-  87              		.loc 1 9 13 is_stmt 1 view .LVU8
-  88 0044 0022     		movs	r2, #0
-  89 0046 0121     		movs	r1, #1
-  90              	.LVL7:
-   9:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_RESET);
-  91              		.loc 1 9 13 is_stmt 0 view .LVU9
-ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 3
+  21:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_SET);
+  76              		.loc 1 21 5 view .LVU11
+  77 0034 154C     		ldr	r4, .L7+12
+  78 0036 0122     		movs	r2, #1
+  79 0038 1146     		mov	r1, r2
+  80 003a 2046     		mov	r0, r4
+  81 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+  82              	.LVL6:
+  22:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_SET);
+  83              		.loc 1 22 5 view .LVU12
+  84 0040 0122     		movs	r2, #1
+  85 0042 0221     		movs	r1, #2
+  86 0044 2046     		mov	r0, r4
+  87 0046 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  88              	.LVL7:
+  23:Src/dac.c     ****     HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
+  89              		.loc 1 23 5 view .LVU13
+  90 004a 0122     		movs	r2, #1
+  91 004c 0421     		movs	r1, #4
+  92 004e 2046     		mov	r0, r4
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s 			page 3
 
 
-  92 0048 00F18040 		add	r0, r0, #1073741824
-  93              	.LVL8:
-   9:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_RESET);
-  94              		.loc 1 9 13 view .LVU10
-  95 004c 00F58430 		add	r0, r0, #67584
-  96 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
-  97              	.LVL9:
-  10:Src/dac.c     ****             break;
-  98              		.loc 1 10 13 is_stmt 1 view .LVU11
-  99 0054 DDE7     		b	.L4
- 100              	.LVL10:
- 101              	.L2:
-  12:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_RESET);
- 102              		.loc 1 12 13 view .LVU12
- 103 0056 0022     		movs	r2, #0
- 104 0058 0221     		movs	r1, #2
- 105              	.LVL11:
-  12:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_RESET);
- 106              		.loc 1 12 13 is_stmt 0 view .LVU13
- 107 005a 0648     		ldr	r0, .L7+4
- 108              	.LVL12:
-  12:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_RESET);
- 109              		.loc 1 12 13 view .LVU14
- 110 005c FFF7FEFF 		bl	HAL_GPIO_WritePin
- 111              	.LVL13:
-  13:Src/dac.c     ****             break;
- 112              		.loc 1 13 13 is_stmt 1 view .LVU15
- 113 0060 D7E7     		b	.L4
- 114              	.LVL14:
- 115              	.L3:
-  15:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
- 116              		.loc 1 15 13 view .LVU16
- 117 0062 0122     		movs	r2, #1
- 118 0064 0421     		movs	r1, #4
- 119              	.LVL15:
-  15:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
- 120              		.loc 1 15 13 is_stmt 0 view .LVU17
- 121 0066 0348     		ldr	r0, .L7+4
- 122              	.LVL16:
-  15:Src/dac.c     ****             HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
- 123              		.loc 1 15 13 view .LVU18
- 124 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 125              	.LVL17:
-  16:Src/dac.c     ****             break;
- 126              		.loc 1 16 13 is_stmt 1 view .LVU19
- 127 006c D1E7     		b	.L4
- 128              	.L8:
- 129 006e 00BF     		.align	2
- 130              	.L7:
- 131 0070 00000000 		.word	hspi1
- 132 0074 00080140 		.word	1073809408
- 133              		.cfi_endproc
- 134              	.LFE65:
- 136              		.text
- 137              	.Letext0:
- 138              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
- 139              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
-ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 4
+  93 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  94              	.LVL8:
+  24:Src/dac.c     **** 
+  25:Src/dac.c     ****     return 0;
+  95              		.loc 1 25 5 view .LVU14
+  26:Src/dac.c     **** }
+  96              		.loc 1 26 1 is_stmt 0 view .LVU15
+  97 0054 0020     		movs	r0, #0
+  98 0056 02B0     		add	sp, sp, #8
+  99              	.LCFI2:
+ 100              		.cfi_remember_state
+ 101              		.cfi_def_cfa_offset 8
+ 102              		@ sp needed
+ 103 0058 10BD     		pop	{r4, pc}
+ 104              	.L6:
+ 105              	.LCFI3:
+ 106              		.cfi_restore_state
+  11:Src/dac.c     ****             break;
+ 107              		.loc 1 11 13 is_stmt 1 view .LVU16
+ 108 005a 0022     		movs	r2, #0
+ 109 005c 0121     		movs	r1, #1
+ 110 005e 0B48     		ldr	r0, .L7+12
+ 111 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 112              	.LVL9:
+  12:Src/dac.c     ****         case 1:
+ 113              		.loc 1 12 13 view .LVU17
+ 114 0064 DFE7     		b	.L4
+ 115              	.L2:
+  14:Src/dac.c     ****             break;
+ 116              		.loc 1 14 13 view .LVU18
+ 117 0066 0022     		movs	r2, #0
+ 118 0068 0221     		movs	r1, #2
+ 119 006a 0848     		ldr	r0, .L7+12
+ 120 006c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 121              	.LVL10:
+  15:Src/dac.c     ****         case 2:
+ 122              		.loc 1 15 13 view .LVU19
+ 123 0070 D9E7     		b	.L4
+ 124              	.L3:
+  17:Src/dac.c     ****             break;
+ 125              		.loc 1 17 13 view .LVU20
+ 126 0072 0022     		movs	r2, #0
+ 127 0074 0421     		movs	r1, #4
+ 128 0076 0548     		ldr	r0, .L7+12
+ 129 0078 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 130              	.LVL11:
+  18:Src/dac.c     ****     }
+ 131              		.loc 1 18 13 view .LVU21
+ 132 007c D3E7     		b	.L4
+ 133              	.L8:
+ 134 007e 00BF     		.align	3
+ 135              	.L7:
+ 136 0080 9A999999 		.word	-1717986918
+ 137 0084 99597940 		.word	1081694617
+ 138 0088 00000000 		.word	hspi1
+ 139 008c 00080140 		.word	1073809408
+ 140              		.cfi_endproc
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s 			page 4
 
 
- 140              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 141              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 142              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
- 143              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 144              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
- 145              		.file 9 "Inc/spi.h"
-ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s 			page 5
+ 141              	.LFE65:
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
+ 146              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
+ 147              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 148              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 149              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 150              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 151              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+ 152              		.file 9 "Inc/spi.h"
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dac.c
-/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s:18     .text.dac_set_voltage:0000000000000000 $t
-/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s:24     .text.dac_set_voltage:0000000000000000 dac_set_voltage
-/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cckoPf6J.s:131    .text.dac_set_voltage:0000000000000070 $d
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s:20     .text.dac_set_voltage:0000000000000000 $t
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s:26     .text.dac_set_voltage:0000000000000000 dac_set_voltage
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//cczBfVTj.s:136    .text.dac_set_voltage:0000000000000080 $d
 
 UNDEFINED SYMBOLS
+__aeabi_dmul
+__aeabi_d2uiz
 HAL_SPI_Transmit
 HAL_GPIO_WritePin
 hspi1

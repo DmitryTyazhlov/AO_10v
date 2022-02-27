@@ -1,0 +1,358 @@
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"console.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.buf_decode.str1.4,"aMS",%progbits,1
+  18              		.align	2
+  19              	.LC1:
+  20 0000 616F3000 		.ascii	"ao0\000"
+  21              		.align	2
+  22              	.LC2:
+  23 0004 616F3100 		.ascii	"ao1\000"
+  24              		.align	2
+  25              	.LC3:
+  26 0008 616F3200 		.ascii	"ao2\000"
+  27              		.global	__aeabi_dcmpgt
+  28              		.global	__aeabi_dcmplt
+  29              		.section	.text.buf_decode,"ax",%progbits
+  30              		.align	1
+  31              		.global	buf_decode
+  32              		.syntax unified
+  33              		.thumb
+  34              		.thumb_func
+  36              	buf_decode:
+  37              	.LVL0:
+  38              	.LFB65:
+  39              		.file 1 "Src/console.c"
+   1:Src/console.c **** #include "console.h"
+   2:Src/console.c **** 
+   3:Src/console.c **** #include "dac.h"
+   4:Src/console.c **** #include "stdlib.h"
+   5:Src/console.c **** #include "string.h"
+   6:Src/console.c **** #include "usart.h"
+   7:Src/console.c **** 
+   8:Src/console.c **** bool buf_decode(uint8_t *buf, uint16_t size) {
+  40              		.loc 1 8 46 view -0
+  41              		.cfi_startproc
+  42              		@ args = 0, pretend = 0, frame = 24
+  43              		@ frame_needed = 0, uses_anonymous_args = 0
+  44              		.loc 1 8 46 is_stmt 0 view .LVU1
+  45 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  46              	.LCFI0:
+  47              		.cfi_def_cfa_offset 20
+  48              		.cfi_offset 4, -20
+  49              		.cfi_offset 5, -16
+  50              		.cfi_offset 6, -12
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 2
+
+
+  51              		.cfi_offset 7, -8
+  52              		.cfi_offset 14, -4
+  53 0002 87B0     		sub	sp, sp, #28
+  54              	.LCFI1:
+  55              		.cfi_def_cfa_offset 48
+  56 0004 0446     		mov	r4, r0
+   9:Src/console.c ****     uint8_t ao[3] = {0};
+  57              		.loc 1 9 5 is_stmt 1 view .LVU2
+  58              		.loc 1 9 13 is_stmt 0 view .LVU3
+  59 0006 2F4B     		ldr	r3, .L18
+  60 0008 1B88     		ldrh	r3, [r3]
+  61 000a ADF81430 		strh	r3, [sp, #20]	@ movhi
+  62 000e 0023     		movs	r3, #0
+  63 0010 8DF81630 		strb	r3, [sp, #22]
+  10:Src/console.c ****     uint8_t ch_ao = 5;
+  64              		.loc 1 10 5 is_stmt 1 view .LVU4
+  65              	.LVL1:
+  11:Src/console.c **** 
+  12:Src/console.c ****     uint8_t voltage[20] = {0};
+  66              		.loc 1 12 5 view .LVU5
+  67              		.loc 1 12 13 is_stmt 0 view .LVU6
+  68 0014 0093     		str	r3, [sp]
+  69 0016 0193     		str	r3, [sp, #4]
+  70 0018 0293     		str	r3, [sp, #8]
+  71 001a 0393     		str	r3, [sp, #12]
+  72 001c 0493     		str	r3, [sp, #16]
+  13:Src/console.c ****     double volt = 0;
+  73              		.loc 1 13 5 is_stmt 1 view .LVU7
+  74              	.LVL2:
+  14:Src/console.c **** 
+  15:Src/console.c ****     for (uint8_t x = 0; x < 3; x++) {
+  75              		.loc 1 15 5 view .LVU8
+  76              	.LBB2:
+  77              		.loc 1 15 10 view .LVU9
+  78              		.loc 1 15 5 is_stmt 0 view .LVU10
+  79 001e 07E0     		b	.L2
+  80              	.LVL3:
+  81              	.L3:
+  16:Src/console.c ****         ao[x] = *(buf + x);
+  82              		.loc 1 16 9 is_stmt 1 discriminator 3 view .LVU11
+  83              		.loc 1 16 17 is_stmt 0 discriminator 3 view .LVU12
+  84 0020 E15C     		ldrb	r1, [r4, r3]	@ zero_extendqisi2
+  85              		.loc 1 16 15 discriminator 3 view .LVU13
+  86 0022 03F11802 		add	r2, r3, #24
+  87 0026 6A44     		add	r2, sp, r2
+  88 0028 02F8041C 		strb	r1, [r2, #-4]
+  15:Src/console.c ****         ao[x] = *(buf + x);
+  89              		.loc 1 15 32 is_stmt 1 discriminator 3 view .LVU14
+  15:Src/console.c ****         ao[x] = *(buf + x);
+  90              		.loc 1 15 33 is_stmt 0 discriminator 3 view .LVU15
+  91 002c 0133     		adds	r3, r3, #1
+  92              	.LVL4:
+  15:Src/console.c ****         ao[x] = *(buf + x);
+  93              		.loc 1 15 33 discriminator 3 view .LVU16
+  94 002e DBB2     		uxtb	r3, r3
+  95              	.LVL5:
+  96              	.L2:
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 3
+
+
+  15:Src/console.c ****         ao[x] = *(buf + x);
+  97              		.loc 1 15 25 is_stmt 1 discriminator 1 view .LVU17
+  15:Src/console.c ****         ao[x] = *(buf + x);
+  98              		.loc 1 15 5 is_stmt 0 discriminator 1 view .LVU18
+  99 0030 022B     		cmp	r3, #2
+ 100 0032 F5D9     		bls	.L3
+ 101              	.LBE2:
+  17:Src/console.c ****     }
+  18:Src/console.c ****     if (strcmp(ao, "ao0") == 0) ch_ao = 0;
+ 102              		.loc 1 18 5 is_stmt 1 view .LVU19
+ 103              		.loc 1 18 9 is_stmt 0 view .LVU20
+ 104 0034 2449     		ldr	r1, .L18+4
+ 105 0036 05A8     		add	r0, sp, #20
+ 106              	.LVL6:
+ 107              		.loc 1 18 9 view .LVU21
+ 108 0038 FFF7FEFF 		bl	strcmp
+ 109              	.LVL7:
+ 110              		.loc 1 18 8 view .LVU22
+ 111 003c 78B1     		cbz	r0, .L10
+  10:Src/console.c **** 
+ 112              		.loc 1 10 13 view .LVU23
+ 113 003e 0525     		movs	r5, #5
+ 114              	.L4:
+ 115              	.LVL8:
+  19:Src/console.c ****     if (strcmp(ao, "ao1") == 0) ch_ao = 1;
+ 116              		.loc 1 19 5 is_stmt 1 view .LVU24
+ 117              		.loc 1 19 9 is_stmt 0 view .LVU25
+ 118 0040 2249     		ldr	r1, .L18+8
+ 119 0042 05A8     		add	r0, sp, #20
+ 120 0044 FFF7FEFF 		bl	strcmp
+ 121              	.LVL9:
+ 122              		.loc 1 19 8 view .LVU26
+ 123 0048 00B9     		cbnz	r0, .L5
+ 124              		.loc 1 19 39 view .LVU27
+ 125 004a 0125     		movs	r5, #1
+ 126              	.LVL10:
+ 127              	.L5:
+  20:Src/console.c ****     if (strcmp(ao, "ao2") == 0) ch_ao = 2;
+ 128              		.loc 1 20 5 is_stmt 1 view .LVU28
+ 129              		.loc 1 20 9 is_stmt 0 view .LVU29
+ 130 004c 2049     		ldr	r1, .L18+12
+ 131 004e 05A8     		add	r0, sp, #20
+ 132 0050 FFF7FEFF 		bl	strcmp
+ 133              	.LVL11:
+ 134              		.loc 1 20 8 view .LVU30
+ 135 0054 28B1     		cbz	r0, .L12
+  21:Src/console.c ****     if (ch_ao == 5) return 1;
+ 136              		.loc 1 21 5 is_stmt 1 view .LVU31
+ 137              		.loc 1 21 8 is_stmt 0 view .LVU32
+ 138 0056 052D     		cmp	r5, #5
+ 139 0058 04D1     		bne	.L6
+ 140              		.loc 1 21 28 view .LVU33
+ 141 005a 0120     		movs	r0, #1
+ 142 005c 2BE0     		b	.L7
+ 143              	.LVL12:
+ 144              	.L10:
+  18:Src/console.c ****     if (strcmp(ao, "ao1") == 0) ch_ao = 1;
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 4
+
+
+ 145              		.loc 1 18 39 view .LVU34
+ 146 005e 0025     		movs	r5, #0
+ 147 0060 EEE7     		b	.L4
+ 148              	.LVL13:
+ 149              	.L12:
+  20:Src/console.c ****     if (strcmp(ao, "ao2") == 0) ch_ao = 2;
+ 150              		.loc 1 20 39 view .LVU35
+ 151 0062 0225     		movs	r5, #2
+ 152              	.LVL14:
+ 153              	.L6:
+  20:Src/console.c ****     if (strcmp(ao, "ao2") == 0) ch_ao = 2;
+ 154              		.loc 1 20 39 view .LVU36
+ 155 0064 0023     		movs	r3, #0
+ 156 0066 06E0     		b	.L9
+ 157              	.LVL15:
+ 158              	.L17:
+  22:Src/console.c **** 
+  23:Src/console.c ****     uint8_t x = 0;
+  24:Src/console.c ****     while (1) {
+  25:Src/console.c ****         if (*(buf + 4 + x) != '\n')
+  26:Src/console.c ****             voltage[x] = *(buf + 4 + x);
+ 159              		.loc 1 26 13 is_stmt 1 view .LVU37
+ 160              		.loc 1 26 24 is_stmt 0 view .LVU38
+ 161 0068 03F11801 		add	r1, r3, #24
+ 162 006c 6944     		add	r1, sp, r1
+ 163 006e 01F8182C 		strb	r2, [r1, #-24]
+  27:Src/console.c ****         else {
+  28:Src/console.c ****             voltage[x] = '\0';
+  29:Src/console.c ****             break;
+  30:Src/console.c ****         }
+  31:Src/console.c ****         x++;
+ 164              		.loc 1 31 9 is_stmt 1 view .LVU39
+ 165              		.loc 1 31 10 is_stmt 0 view .LVU40
+ 166 0072 0133     		adds	r3, r3, #1
+ 167              	.LVL16:
+ 168              		.loc 1 31 10 view .LVU41
+ 169 0074 DBB2     		uxtb	r3, r3
+ 170              	.LVL17:
+  24:Src/console.c ****         if (*(buf + 4 + x) != '\n')
+ 171              		.loc 1 24 11 is_stmt 1 view .LVU42
+ 172              	.L9:
+  24:Src/console.c ****         if (*(buf + 4 + x) != '\n')
+ 173              		.loc 1 24 5 view .LVU43
+  25:Src/console.c ****             voltage[x] = *(buf + 4 + x);
+ 174              		.loc 1 25 9 view .LVU44
+  25:Src/console.c ****             voltage[x] = *(buf + 4 + x);
+ 175              		.loc 1 25 23 is_stmt 0 view .LVU45
+ 176 0076 1A1D     		adds	r2, r3, #4
+  25:Src/console.c ****             voltage[x] = *(buf + 4 + x);
+ 177              		.loc 1 25 13 view .LVU46
+ 178 0078 A25C     		ldrb	r2, [r4, r2]	@ zero_extendqisi2
+  25:Src/console.c ****             voltage[x] = *(buf + 4 + x);
+ 179              		.loc 1 25 12 view .LVU47
+ 180 007a 0A2A     		cmp	r2, #10
+ 181 007c F4D1     		bne	.L17
+  28:Src/console.c ****             break;
+ 182              		.loc 1 28 13 is_stmt 1 view .LVU48
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 5
+
+
+  28:Src/console.c ****             break;
+ 183              		.loc 1 28 24 is_stmt 0 view .LVU49
+ 184 007e 1833     		adds	r3, r3, #24
+ 185              	.LVL18:
+  28:Src/console.c ****             break;
+ 186              		.loc 1 28 24 view .LVU50
+ 187 0080 6B44     		add	r3, sp, r3
+ 188 0082 0022     		movs	r2, #0
+ 189 0084 03F8182C 		strb	r2, [r3, #-24]
+  29:Src/console.c ****         }
+ 190              		.loc 1 29 13 is_stmt 1 view .LVU51
+  32:Src/console.c ****     }
+  33:Src/console.c **** 
+  34:Src/console.c ****     volt = atof(voltage);
+ 191              		.loc 1 34 5 view .LVU52
+ 192              		.loc 1 34 12 is_stmt 0 view .LVU53
+ 193 0088 6846     		mov	r0, sp
+ 194 008a FFF7FEFF 		bl	atof
+ 195              	.LVL19:
+ 196 008e 0646     		mov	r6, r0
+ 197 0090 0F46     		mov	r7, r1
+ 198              	.LVL20:
+  35:Src/console.c ****     if ((volt > 10) || (volt < 0)) return 1;
+ 199              		.loc 1 35 5 is_stmt 1 view .LVU54
+ 200              		.loc 1 35 8 is_stmt 0 view .LVU55
+ 201 0092 0022     		movs	r2, #0
+ 202 0094 0F4B     		ldr	r3, .L18+16
+ 203 0096 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 204              	.LVL21:
+ 205 009a 70B9     		cbnz	r0, .L14
+ 206              		.loc 1 35 21 discriminator 2 view .LVU56
+ 207 009c 0022     		movs	r2, #0
+ 208 009e 0023     		movs	r3, #0
+ 209 00a0 3046     		mov	r0, r6
+ 210 00a2 3946     		mov	r1, r7
+ 211 00a4 FFF7FEFF 		bl	__aeabi_dcmplt
+ 212              	.LVL22:
+ 213 00a8 48B9     		cbnz	r0, .L15
+  36:Src/console.c ****     
+  37:Src/console.c ****     dac_set_voltage(ch_ao, volt);
+ 214              		.loc 1 37 5 is_stmt 1 view .LVU57
+ 215 00aa 3246     		mov	r2, r6
+ 216 00ac 3B46     		mov	r3, r7
+ 217 00ae 2846     		mov	r0, r5
+ 218 00b0 FFF7FEFF 		bl	dac_set_voltage
+ 219              	.LVL23:
+  38:Src/console.c **** 
+  39:Src/console.c ****     return 0;
+ 220              		.loc 1 39 5 view .LVU58
+ 221              		.loc 1 39 12 is_stmt 0 view .LVU59
+ 222 00b4 0020     		movs	r0, #0
+ 223              	.LVL24:
+ 224              	.L7:
+  40:Src/console.c **** }...
+ 225              		.loc 1 40 1 view .LVU60
+ 226 00b6 07B0     		add	sp, sp, #28
+ 227              	.LCFI2:
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 6
+
+
+ 228              		.cfi_remember_state
+ 229              		.cfi_def_cfa_offset 20
+ 230              		@ sp needed
+ 231 00b8 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 232              	.LVL25:
+ 233              	.L14:
+ 234              	.LCFI3:
+ 235              		.cfi_restore_state
+  35:Src/console.c ****     if ((volt > 10) || (volt < 0)) return 1;
+ 236              		.loc 1 35 43 view .LVU61
+ 237 00ba 0120     		movs	r0, #1
+ 238 00bc FBE7     		b	.L7
+ 239              	.L15:
+ 240 00be 0120     		movs	r0, #1
+ 241 00c0 F9E7     		b	.L7
+ 242              	.L19:
+ 243 00c2 00BF     		.align	2
+ 244              	.L18:
+ 245 00c4 00000000 		.word	.LANCHOR0
+ 246 00c8 00000000 		.word	.LC1
+ 247 00cc 04000000 		.word	.LC2
+ 248 00d0 08000000 		.word	.LC3
+ 249 00d4 00002440 		.word	1076101120
+ 250              		.cfi_endproc
+ 251              	.LFE65:
+ 253              		.section	.rodata
+ 254              		.align	2
+ 255              		.set	.LANCHOR0,. + 0
+ 256              	.LC0:
+ 257 0000 0000     		.ascii	"\000\000"
+ 258 0002 00       		.space	1
+ 259              		.text
+ 260              	.Letext0:
+ 261              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
+ 262              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
+ 263              		.file 4 "/Applications/ARM/arm-none-eabi/include/string.h"
+ 264              		.file 5 "/Applications/ARM/arm-none-eabi/include/stdlib.h"
+ 265              		.file 6 "Inc/dac.h"
+ARM GAS  /var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 console.c
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s:18     .rodata.buf_decode.str1.4:0000000000000000 $d
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s:30     .text.buf_decode:0000000000000000 $t
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s:36     .text.buf_decode:0000000000000000 buf_decode
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s:245    .text.buf_decode:00000000000000c4 $d
+/var/folders/_f/88qcw_5n2jl40jjphvxyt7wh0000gn/T//ccQtW2vH.s:254    .rodata:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_dcmpgt
+__aeabi_dcmplt
+strcmp
+atof
+dac_set_voltage
