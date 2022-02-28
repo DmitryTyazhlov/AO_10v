@@ -10,6 +10,7 @@ bool buf_decode(uint8_t *buf, uint16_t size) {
     uint8_t ch_ao = 5;
 
     uint8_t voltage[20] = {0};
+    voltage[19] = '\n';
     double volt = 0;
 
     for (uint8_t x = 0; x < 3; x++) {
@@ -19,6 +20,8 @@ bool buf_decode(uint8_t *buf, uint16_t size) {
     if (strcmp(ao, "ao1") == 0) ch_ao = 1;
     if (strcmp(ao, "ao2") == 0) ch_ao = 2;
     if (ch_ao == 5) return 1;
+
+    if (*(buf + 3) != ' ') return 1;
 
     uint8_t x = 0;
     while (1) {

@@ -25,10 +25,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "console.h"
 #include "dac.h"
 #include "stdint.h"
 #include "stdlib.h"
-#include "console.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,10 +48,19 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t text[] =
+    "This program control voltage on output DAC \n\
+Settings: 115200 Baud, NL (new line) \n\
+Names of channels: ao0 ao1 ao2 \n\
+Range output voltage: 0-10v \n\
+Examples of commands: \n\
+ao0 5.54 \n\
+ao1 0 \n\
+ao2 10 \n";
 /* USER CODE END PV */
 
-/* Private function prototypes -----------------------------------------------*/
+/* Private function prototypes
+   -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
@@ -64,14 +73,17 @@ uint8_t num_symbol = 0;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     // if (buf == '0') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-    // if (buf == '1') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
-    
+    // if (buf == '1') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,
+    // GPIO_PIN_RESET);
+
     if (buf[num_symbol] == '\n') {
         num_symbol = 0;
-        if (buf_decode(buf, sizeof(buf)) == 0) HAL_UART_Transmit(&huart1, "ok\n", 3, 1);
-        else HAL_UART_Transmit(&huart1, "error\n", 6, 1);
-        }
-    else num_symbol++;
+        if (buf_decode(buf, sizeof(buf)) == 0)
+            HAL_UART_Transmit(&huart1, "ok\n", 3, 10);
+        else
+            HAL_UART_Transmit(&huart1, "error\n", 6, 10);
+    } else
+        num_symbol++;
 
     if (num_symbol == 18) num_symbol = 0;
 
@@ -112,8 +124,9 @@ int main(void) {
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-  
+
     /* USER CODE END 2 */
+    HAL_UART_Transmit(&huart1, text, sizeof(text), 30);
     HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
     buf[19] = '\n';
     /* Infinite loop */
