@@ -6,7 +6,8 @@
 #include "usart.h"
 
 bool buf_decode(uint8_t *buf, uint16_t size) {
-    uint8_t ao[3] = {0};
+    uint8_t ao[4] = {0};
+    ao[3] = '\0';
     uint8_t ch_ao = 5;
 
     uint8_t voltage[20] = {0};

@@ -1,10 +1,11 @@
 #include "dac.h"
 
 #include "main.h"
+#include "gpio.h"
 #include "spi.h"
 
 uint8_t dac_set_voltage(uint8_t channel, double voltage) {
-    voltage *= 405.6;
+    voltage *= 404.08;
     uint16_t size = (uint16_t)voltage;
     switch (channel) {
         case 0:

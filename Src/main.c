@@ -49,7 +49,7 @@
 
 /* USER CODE BEGIN PV */
 uint8_t text[] =
-    "This program control voltage on output DAC \n\
+    "This firmware control voltage on output DAC \n\
 Settings: 115200 Baud, NL (new line) \n\
 Names of channels: ao0 ao1 ao2 \n\
 Range output voltage: 0-10v \n\
@@ -79,9 +79,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (buf[num_symbol] == '\n') {
         num_symbol = 0;
         if (buf_decode(buf, sizeof(buf)) == 0)
-            HAL_UART_Transmit(&huart1, "ok\n", 3, 10);
+            HAL_UART_Transmit_IT(&huart1, "ok\n", 3);
         else
-            HAL_UART_Transmit(&huart1, "error\n", 6, 10);
+            HAL_UART_Transmit_IT(&huart1, "error\n", 6);
     } else
         num_symbol++;
 
@@ -126,9 +126,9 @@ int main(void) {
     HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
     /* USER CODE END 2 */
-    HAL_UART_Transmit(&huart1, text, sizeof(text), 30);
-    HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
+    HAL_UART_Transmit_IT(&huart1, text, sizeof(text));
     buf[19] = '\n';
+    HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
