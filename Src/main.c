@@ -72,10 +72,6 @@ uint8_t buf[20] = {0};
 uint8_t num_symbol = 0;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    // if (buf == '0') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
-    // if (buf == '1') HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin,
-    // GPIO_PIN_RESET);
-
     if (buf[num_symbol] == '\n') {
         num_symbol = 0;
         if (buf_decode(buf, sizeof(buf)) == 0)
@@ -128,6 +124,15 @@ int main(void) {
     /* USER CODE END 2 */
     HAL_UART_Transmit_IT(&huart1, text, sizeof(text));
     buf[19] = '\n';
+
+    HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
+    
+    dac_set_voltage(0, 0);
+    dac_set_voltage(1, 0);
+    dac_set_voltage(2, 0);
+    
     HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
