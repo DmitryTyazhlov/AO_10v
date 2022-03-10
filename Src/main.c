@@ -51,12 +51,13 @@
 uint8_t text[] =
     "This firmware control voltage on output DAC \n\
 Settings: 115200 Baud, NL (new line) \n\
-Names of channels: ao0 ao1 ao2 \n\
+Channel names: ao0 ao1 ao2 \n\
 Range output voltage: 0-10v \n\
 Examples of commands: \n\
 ao0 5.54 \n\
 ao1 0 \n\
-ao2 10 \n";
+ao2 10 \n\
+///////////////////END/////////////////////\n\n";
 /* USER CODE END PV */
 
 /* Private function prototypes
@@ -74,10 +75,18 @@ uint8_t num_symbol = 0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (buf[num_symbol] == '\n') {
         num_symbol = 0;
-        if (buf_decode(buf, sizeof(buf)) == 0)
-            HAL_UART_Transmit_IT(&huart1, "ok\n", 3);
-        else
-            HAL_UART_Transmit_IT(&huart1, "error\n", 6);
+        if (buf_decode(buf, sizeof(buf)) == 0) {
+            uint8_t x = 0;
+            for (x; x < 20; x++) {
+                if (buf[x] == '\n') {
+                    x += 1;
+                    break;
+                }
+            }
+            HAL_UART_Transmit_IT(&huart1, buf, x);
+            // HAL_UART_Transmit_IT(&huart1, "  ok\n", 5);
+        } else
+            HAL_UART_Transmit_IT(&huart1, "ERROR\n", 6);
     } else
         num_symbol++;
 
@@ -128,11 +137,11 @@ int main(void) {
     HAL_GPIO_WritePin(CS_AO0_GPIO_Port, CS_AO0_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(CS_AO1_GPIO_Port, CS_AO1_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(CS_AO2_GPIO_Port, CS_AO2_Pin, GPIO_PIN_SET);
-    
+
     dac_set_voltage(0, 0);
     dac_set_voltage(1, 0);
     dac_set_voltage(2, 0);
-    
+
     HAL_UART_Receive_IT(&huart1, buf + num_symbol, 1);
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
