@@ -57,7 +57,8 @@ Examples of commands: \n\
 ao0 5.54 \n\
 ao1 0 \n\
 ao2 10 \n\
-///////////////////END/////////////////////\n\n";
+///////////////////END/////////////////////\n\n\
+ao0 0\nao1 0\nao2 0\n";
 /* USER CODE END PV */
 
 /* Private function prototypes

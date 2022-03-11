@@ -1847,94 +1847,95 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.
                 [!provide]                        PROVIDE (__fini_array_end = .)
                 0x000000000800573c                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x2c8 load address 0x000000000800573c
+.data           0x0000000020000000      0x2dc load address 0x000000000800573c
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
  *(.data*)
- .data.text     0x0000000020000000       0xea build/main.o
+ .data.text     0x0000000020000000       0xfc build/main.o
                 0x0000000020000000                text
  .data.uwTickFreq
-                0x00000000200000ea        0x1 build/stm32f1xx_hal.o
-                0x00000000200000ea                uwTickFreq
- *fill*         0x00000000200000eb        0x1 
+                0x00000000200000fc        0x1 build/stm32f1xx_hal.o
+                0x00000000200000fc                uwTickFreq
+ *fill*         0x00000000200000fd        0x3 
  .data.uwTickPrio
-                0x00000000200000ec        0x4 build/stm32f1xx_hal.o
-                0x00000000200000ec                uwTickPrio
+                0x0000000020000100        0x4 build/stm32f1xx_hal.o
+                0x0000000020000100                uwTickPrio
  .data.SystemCoreClock
-                0x00000000200000f0        0x4 build/system_stm32f1xx.o
-                0x00000000200000f0                SystemCoreClock
+                0x0000000020000104        0x4 build/system_stm32f1xx.o
+                0x0000000020000104                SystemCoreClock
  .data._impure_ptr
-                0x00000000200000f4        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-impure.o)
-                0x00000000200000f4                _impure_ptr
+                0x0000000020000108        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000020000108                _impure_ptr
  .data.impure_data
-                0x00000000200000f8       0x60 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x000000002000010c       0x60 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-impure.o)
  .data.numempty
-                0x0000000020000158        0x2 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lnumeric.o)
- *fill*         0x000000002000015a        0x2 
+                0x000000002000016c        0x2 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lnumeric.o)
+ *fill*         0x000000002000016e        0x2 
  .data.__global_locale
-                0x000000002000015c      0x16c /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-locale.o)
-                0x000000002000015c                __global_locale
-                0x00000000200002c8                . = ALIGN (0x4)
-                0x00000000200002c8                _edata = .
+                0x0000000020000170      0x16c /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-locale.o)
+                0x0000000020000170                __global_locale
+                0x00000000200002dc                . = ALIGN (0x4)
+                0x00000000200002dc                _edata = .
 
-.igot.plt       0x00000000200002c8        0x0 load address 0x0000000008005a04
- .igot.plt      0x00000000200002c8        0x0 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
-                0x00000000200002c8                . = ALIGN (0x4)
+.igot.plt       0x00000000200002dc        0x0 load address 0x0000000008005a18
+ .igot.plt      0x00000000200002dc        0x0 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+                0x00000000200002dc                . = ALIGN (0x4)
 
-.bss            0x00000000200002c8       0xe8 load address 0x0000000008005a04
-                0x00000000200002c8                _sbss = .
-                0x00000000200002c8                __bss_start__ = _sbss
+.bss            0x00000000200002dc       0xe8 load address 0x0000000008005a18
+                0x00000000200002dc                _sbss = .
+                0x00000000200002dc                __bss_start__ = _sbss
  *(.bss)
- .bss           0x00000000200002c8       0x1c /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+ .bss           0x00000000200002dc       0x1c /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.bss*)
- .bss.buf       0x00000000200002e4       0x14 build/main.o
-                0x00000000200002e4                buf
+ .bss.buf       0x00000000200002f8       0x14 build/main.o
+                0x00000000200002f8                buf
  .bss.num_symbol
-                0x00000000200002f8        0x1 build/main.o
-                0x00000000200002f8                num_symbol
- *fill*         0x00000000200002f9        0x3 
- .bss.hspi1     0x00000000200002fc       0x58 build/spi.o
-                0x00000000200002fc                hspi1
- .bss.huart1    0x0000000020000354       0x44 build/usart.o
-                0x0000000020000354                huart1
- .bss.uwTick    0x0000000020000398        0x4 build/stm32f1xx_hal.o
-                0x0000000020000398                uwTick
+                0x000000002000030c        0x1 build/main.o
+                0x000000002000030c                num_symbol
+ *fill*         0x000000002000030d        0x3 
+ .bss.hspi1     0x0000000020000310       0x58 build/spi.o
+                0x0000000020000310                hspi1
+ .bss.huart1    0x0000000020000368       0x44 build/usart.o
+                0x0000000020000368                huart1
+ .bss.uwTick    0x00000000200003ac        0x4 build/stm32f1xx_hal.o
+                0x00000000200003ac                uwTick
  .bss.__malloc_free_list
-                0x000000002000039c        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
-                0x000000002000039c                __malloc_free_list
+                0x00000000200003b0        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200003b0                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x00000000200003a0        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200003a0                __malloc_sbrk_start
- .bss.errno     0x00000000200003a4        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-reent.o)
-                0x00000000200003a4                errno
+                0x00000000200003b4        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200003b4                __malloc_sbrk_start
+ .bss.errno     0x00000000200003b8        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-reent.o)
+                0x00000000200003b8                errno
  .bss.__lock___malloc_recursive_mutex
-                0x00000000200003a8        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
-                0x00000000200003a8                __lock___malloc_recursive_mutex
+                0x00000000200003bc        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000200003bc                __lock___malloc_recursive_mutex
  .bss.__lock___sfp_recursive_mutex
-                0x00000000200003a9        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
-                0x00000000200003a9                __lock___sfp_recursive_mutex
+                0x00000000200003bd        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000200003bd                __lock___sfp_recursive_mutex
  .bss.__lock___sinit_recursive_mutex
-                0x00000000200003aa        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
-                0x00000000200003aa                __lock___sinit_recursive_mutex
- *fill*         0x00000000200003ab        0x1 
+                0x00000000200003be        0x1 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc_nano.a(lib_a-lock.o)
+                0x00000000200003be                __lock___sinit_recursive_mutex
+ *fill*         0x00000000200003bf        0x1 
  .bss.heap_end.0
-                0x00000000200003ac        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(sbrk.o)
+                0x00000000200003c0        0x4 /Applications/ARM/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(sbrk.o)
  *(COMMON)
-                0x00000000200003b0                . = ALIGN (0x4)
-                0x00000000200003b0                _ebss = .
-                0x00000000200003b0                __bss_end__ = _ebss
+                0x00000000200003c4                . = ALIGN (0x4)
+                0x00000000200003c4                _ebss = .
+                0x00000000200003c4                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x00000000200003b0      0x600 load address 0x0000000008005a04
-                0x00000000200003b0                . = ALIGN (0x8)
-                0x00000000200003b0                PROVIDE (end = .)
+                0x00000000200003c4      0x604 load address 0x0000000008005a18
+                0x00000000200003c8                . = ALIGN (0x8)
+ *fill*         0x00000000200003c4        0x4 
+                0x00000000200003c8                PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
-                0x00000000200005b0                . = (. + _Min_Heap_Size)
- *fill*         0x00000000200003b0      0x200 
-                0x00000000200009b0                . = (. + _Min_Stack_Size)
- *fill*         0x00000000200005b0      0x400 
-                0x00000000200009b0                . = ALIGN (0x8)
+                0x00000000200005c8                . = (. + _Min_Heap_Size)
+ *fill*         0x00000000200003c8      0x200 
+                0x00000000200009c8                . = (. + _Min_Stack_Size)
+ *fill*         0x00000000200005c8      0x400 
+                0x00000000200009c8                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
